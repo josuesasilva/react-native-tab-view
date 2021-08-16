@@ -231,7 +231,7 @@ export default class TabBarItem<T extends Route> extends React.Component<
 
     return (
       <PlatformPressable
-        android_ripple={{ borderless: true }}
+        android_ripple={{ borderless: true, color: 'transparent' }}
         testID={getTestID(scene)}
         accessible={getAccessible(scene)}
         accessibilityLabel={accessibilityLabel}
@@ -261,7 +261,6 @@ const styles = StyleSheet.create({
   label: {
     margin: 4,
     backgroundColor: 'transparent',
-    textTransform: 'uppercase',
   },
   icon: {
     margin: 2,
