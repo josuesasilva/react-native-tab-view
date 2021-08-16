@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Animated, Keyboard, StyleSheet } from 'react-native';
+import { Animated, StyleSheet } from 'react-native';
 import ViewPager, {
   PageScrollStateChangedNativeEvent,
 } from 'react-native-pager-view';
@@ -50,31 +50,24 @@ export default function PagerViewAdapter<T extends Route>({
   const pagerRef = React.useRef<ViewPager>();
   const indexRef = React.useRef<number>(index);
   const navigationStateRef = React.useRef(navigationState);
+  const routesRef = React.useRef<Record<string, number>>({});
 
   const position = useAnimatedValue(index);
   const offset = useAnimatedValue(0);
 
   React.useEffect(() => {
     navigationStateRef.current = navigationState;
+
+    navigationState.routes.forEach((route: { key: string }, index: number) => {
+      routesRef.current[route.key] = index;
+    });
   });
 
   const jumpTo = React.useCallback((key: string) => {
-    const index = navigationStateRef.current.routes.findIndex(
-      (route: { key: string }) => route.key === key
-    );
+    const index = routesRef.current[key];
 
     pagerRef.current?.setPage(index);
   }, []);
-
-  React.useEffect(() => {
-    if (keyboardDismissMode === 'auto') {
-      Keyboard.dismiss();
-    }
-
-    if (indexRef.current !== index) {
-      pagerRef.current?.setPage(index);
-    }
-  }, [keyboardDismissMode, index]);
 
   const onPageScrollStateChanged = (
     state: PageScrollStateChangedNativeEvent
