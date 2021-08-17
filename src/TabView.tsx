@@ -58,7 +58,7 @@ export default function TabView<T extends Route>({
 
   const jumpToIndex = (index: number) => {
     if (index !== navigationState.index) {
-      onIndexChange(index);
+      requestAnimationFrame(() => onIndexChange(index));
     }
   };
 

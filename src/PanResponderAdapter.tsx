@@ -85,7 +85,7 @@ export default function PanResponderAdapter<T extends Route>({
         timing(panX, {
           ...transitionConfig,
           toValue: offset,
-          useNativeDriver: false,
+          useNativeDriver: true,
         }),
       ]).start(({ finished }) => {
         if (finished) {
