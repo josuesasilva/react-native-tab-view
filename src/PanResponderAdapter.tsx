@@ -89,8 +89,6 @@ export default function PanResponderAdapter<T extends Route>({
         }),
       ]).start(({ finished }) => {
         if (finished) {
-          setTimeout(() => onIndexChangeRef.current(index), 1000);
-
           pendingIndexRef.current = undefined;
         }
       });
